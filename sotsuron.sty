@@ -1,0 +1,92 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	caption表示変更					             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\labfig#1{\label{fig:#1}}
+\def\labtab#1{\label{tab:#1}}
+\def\labeq#1{\label{eq:#1}}
+\def\reffig#1{{\bf Fig.\,}\ref{fig:#1}}
+\def\reftab#1{{\bf Table }\ref{tab:#1}}
+\def\refeq#1{{\bf eq.\,}(\ref{eq:#1})}
+
+\def\labsec#1{\label{sec:#1}}
+\def\refchap#1{\ref{sec:#1}章}
+\def\refsec#1{\ref{sec:#1}節}
+
+\def\fnum@figure{{\bf Fig.\,}\thefigure}
+\def\fnum@table{{\bf Table\ }\thetable}
+
+\long\def\@caption#1[#2]#3{\par\addcontentsline{\csname
+  ext@#1\endcsname}{#1}{\protect\numberline{\csname 
+  the#1\endcsname}{\ignorespaces #2}}\begingroup
+    \@parboxrestore			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \normalsize				%%  caption文字サイズ設定  %%
+%    \footnotesize			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    \small
+    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
+  \endgroup}
+
+\long\def\@makecaption#1#2{% 図・表の見出しを作る命令
+   \vskip \p@			% 10pt 下に進む 
+   \setbox\@tempboxa\hbox{#1 #2}% 「図1 何々」の形の箱を作る
+   \ifdim \wd\@tempboxa >\hsize % 箱が 1 行に入りきらないなら
+     \begin{list}{#1}{
+       %\leftmargin 2zw \itemindent 0ex \labelsep 1ex%
+       \leftmargin 4em \itemindent 0ex \labelsep 1ex %2行目以降の字下げ幅？
+       \labelwidth \leftmargin%
+       \addtolength{\labelwidth}{-\itemindent}%
+       \addtolength{\labelwidth}{-\labelsep}%
+       \rightmargin=\leftmargini%
+       \addtolength{\rightmargin}{-\itemindent}}%
+       \item #2		% 通常の段組として組む（うそ）
+     \end{list}\par%
+   \else			% そうでなければ
+       \hbox to\hsize{\hfil\box\@tempboxa\hfil}% 箱を中央揃えで出力  
+   \fi}
+
+
+
+\def\eqnarray{%
+   \stepcounter{equation}%
+   \def\@currentlabel{\p@equation\theequation}%
+   \global\@eqnswtrue
+   \m@th
+   \global\@eqcnt\z@
+   \tabskip\@centering
+   \let\\\@eqncr
+   $$\everycr{}\halign to\displaywidth\bgroup
+       \hskip\@centering$\displaystyle\tabskip\z@skip{##}$\@eqnsel
+      &\global\@eqcnt\@ne\hskip .8\arraycolsep \hfil${##}$\hfil %% \tw@
+      &\global\@eqcnt\tw@ \hskip .8\arraycolsep                 %% 
+         $\displaystyle{##}$\hfil\tabskip\@centering
+      &\global\@eqcnt\thr@@ \hb@xt@\z@\bgroup\hss##\egroup
+         \tabskip\z@skip
+      \cr
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	構成調整					             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% backmatterの後に\appendixを入れると章番号が入らなくなるのを修正
+\renewcommand{\appendix}{\par
+  \@mainmattertrue  %これが必要
+  \setcounter{chapter}{0}%
+  \setcounter{section}{0}%
+  \gdef\@chapapp{\appendixname}%
+  \gdef\@chappos{}%
+  \gdef\thechapter{\@Alph\c@chapter}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	フロートの各設定	%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{topnumber}{5}	%ページ上部の図表は 5 個まで
+\def\topfraction{.95}		%ページの上 0.95 まで図表で占めて可
+\setcounter{bottomnumber}{5}	%ページ下部の図表は 5 個まで
+\def\bottomfraction{.95}	%ページの下 0.95 まで図表で占めて可
+\setcounter{totalnumber}{10}	%ページあたりの図表は 10 個まで
+\def\textfraction{.05}		%ページうち本文が占める割合の下限
+%        これを 0 にすると本文が 1 行だけのページが出来る
+%        0.04 くらいにすると 1 行だけのページは防げる
+%        0.1 くらいが良いかも知れない
+
+\def\floatpagefraction{.5}	%図表だけのページは少なくともこれだけを図表が占める

@@ -1,0 +1,97 @@
+%\documentstyle[graphicx,a4paper,amsmath,amssymb,12pt,oneside,openany,sotsuron,cases,jsreport]{jsbook}
+\documentclass[a4paper,12pt,oneside,openany]{jsbook}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\usepackage{cases}
+\usepackage{jsreport}
+\usepackage{sotsuron}
+\usepackage{url}
+\renewcommand\UrlFont{\rmfamily}
+\usepackage{cite}
+\usepackage{caption}%基本命令なので入れておく
+\usepackage{subcaption}
+\usepackage{comment}%複数行，コメントアウトしたいときに使用
+\captionsetup{compatibility=false}%これないとエラー出る
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand*{\thesubfigure}{(\alph{subfigure})}%subcaptionカッコつける
+%\AtBeginDvi{\special{papersize=4AL}}y
+%パッケージmathcomp $\tccelsius$で℃使用可
+%\newcommand{\bm}[1]{\;\mbox{\boldmath$ {\it #1}$}}
+%\newcommand{\mbf}[1]{\mbox{\boldmath$#1$}}
+%\newcounter{ass}
+%kimura2005/01/14
+%\setlength{\cybaseylineskip}{.94\baselineskip}
+%行間隔を変える命令<1で狭く，>1で広くする
+%\def\baselinestretch{1}
+%\pagestyle{empty}	%ページ番号なし
+%↓\os{}で上付き文字を使用するための言宣
+\newcommand{\os}[1]{\mbox{}^{#1}}
+%\bm{}で数式文字太字を使用するための宣言
+\newcommand{\bm}[1]{\mbox{\boldmath $#1$}}
+\renewcommand{\bibname}{参考文献}	%jsbookの引用文献を参考文献に変える
+\newcounter{point}
+%自分で入れたやつ
+
+\newcommand{\argmax}{\mathop{arg~max}\limits}
+\newcommand{\argmin}{\mathop{arg~min}\limits}
+
+% |\floatsep| は，ページ上部あるいは下部のフロートy間の距離です．
+% |\textfloatsep| は，ページ上部あるいは下部のフロートと本文との距離です．
+% |\intextsep| は，本文の途中に出力されるフロートと本文との距離です．
+% 各基本設定は12pt(多分)
+
+\setlength{\floatsep}{3pt}
+\setlength{\textfloatsep}{6pt}
+\setlength{\intextsep}{3pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+%
+%前書き
+\frontmatter
+%
+%タイトル
+\input{contents/0.title}
+
+%\thispagestyle{empty}
+%\baselineskip 1.15\baselineskip
+
+%概要
+\input{contents/01.abstract}
+
+\newpage
+%
+%目次
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+%
+%本文
+\mainmatter
+
+%内容
+\input{contents/1.introduction}
+\input{contents/2.simulation}
+\input{contents/3.robot}
+\input{contents/4.experiment}
+\input{contents/5.conclusion}
+
+
+
+%謝辞
+\input{contents/acknowledgement}
+
+%参考文献
+\input{contents/references}
+
+\appendix
+%付録
+%\chapter{}
+%\input{contents/7.appendix}
+
+\end{document}
