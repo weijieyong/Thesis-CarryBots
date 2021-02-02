@@ -32,30 +32,42 @@
     
 \end{itemize}
 \section{システム全体のモデル}
+\label{section:modeling}
 物体が倒れるときや物体を支持するための条件を検討するために，システムのモデリングを行う．そのモデリングの概要について述べる．モデリングした図を\reffig{modeling}に示す．ここで，縦長い物体を真ん中に立てて，その両側に長方形のロボットが置いてある．ロボット1とロボット2は左と右にそれぞれ置く．また，これらを移動部の上に乗せた．今回移動部は地面との摩擦を無視できる横長い台車と仮定し，ロボットと物体の間の抗力は中央に作用すると仮定する．\reffig{freebody}に物体に作用する力の図を示す．ここで，物体に重力による力，ロボットと台車からの垂直抗力，ロボット・台車との摩擦が作用する他に，台車に力をかけた場合の物体にそれと逆向きに慣性力$F^{\prime}$が働く．また，ロボット1とロボット2の寸法は同じなので，$h_{r_1}=h_{r_2}=h_{r}$とする．
 本稿におけるモデリングに使用した変数を\reftab{model-parameter}に示す．
-
 \begin{figure}[tb]
- \centering
-  \begin{tabular}{c}
-   
-   \begin{minipage}{0.5\hsize}
-    \centering
-     \includegraphics[trim=0 0 0 15, clip,width=\columnwidth]{./figure/model.pdf}
-     \caption{Simplified model}
-     \labfig{modeling}
-   \end{minipage}
-   
-   \begin{minipage}{0.5\hsize}
-    \centering
-     \includegraphics[width=0.5\columnwidth]{./figure/freebody.pdf}
-     \caption{Free body diagram of object}
-     \labfig{freebody}
-   \end{minipage}
-  \end{tabular}
+  \centering
+    \includegraphics[width=0.7\columnwidth]{./figure/carrybot-model.pdf}
+    \caption{Simplified model}
+    \labfig{modeling}
 \end{figure}
+\begin{figure}[tb]
+  \centering
+    \includegraphics[width=0.7\columnwidth]{./figure/freebody-v2.pdf}
+     \caption{Free body diagram of object and robot}
+     \labfig{freebody}
+\end{figure}
+% \begin{figure}[tb]
+%  \centering
+%   \begin{tabular}{c}
+   
+%   \begin{minipage}{0.5\hsize}
+%     \centering
+%      \includegraphics[trim=0 0 0 15, clip,width=\columnwidth]{./figure/model.pdf}
+%      \caption{Simplified model}
+%      \labfig{modeling}
+%   \end{minipage}
+   
+%   \begin{minipage}{0.5\hsize}
+%     \centering
+%      \includegraphics[width=0.7\columnwidth]{./figure/freebody.pdf}
+%      \caption{Free body diagram of object}
+%      \labfig{freebody}
+%   \end{minipage}
+%   \end{tabular}
+% \end{figure}
 
-\begin{table}[b]
+\begin{table}[tb]
 \caption{Parameters of model}
 \centering
 \begin{tabular}{c|c}
@@ -71,6 +83,8 @@ $f_{t o}$ & Friction from trolley acting on object                 \\ \hline
 $N_{t o}$ & Normal force from trolley acting on object                 \\ \hline
 $N_{r_1 o}$ & Normal force from robot1 acting on object                 \\ \hline
 $N_{r_2 o}$ & Normal force from robot2 acting on object                 \\ \hline
+$F_{r_1}$ & Force asserted by robot1                 \\ \hline
+$F_{r_2}$ & Force asserted by robot2                 \\ \hline
 \end{tabular}
 \label{tab:model-parameter}
 \end{table}
@@ -81,12 +95,13 @@ F^{\prime} \frac{h_{o}}{2}+N_{r_{2} o} \frac{h_{r}}{2}=m_{o} g \frac{b_{o}}{2}+N
 \label{equilibrium}
 \end{equation}
 \eqref{equilibrium}式より，
-物体が傾き始めるときの台車にかかる力$F^{\prime}$について解くと，\eqref{F-solve}式になる．
+物体が傾き始めるときの台車にかかる力$F^{\prime}$を$F_{\text { topple }}$とし，$F_{\text { topple }}$について解いたものが\eqref{F-solve}である．
 \begin{equation}
     F_{\text { topple }}=\frac{h_{r}}{h_{o}}\left(N_{r_{1} o}-N_{r_{2} o}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
     \label{F-solve}
 \end{equation}
-また，ロボットからの垂直抗力$N_{ro}$をロボットの前進力$F_{r}$とロボットと台車の間の摩擦力$f_{tr}$で表現すると，
+ここで，\eqref{F-solve}式の1項目のロボット1からの垂直抗力$N_{r_1 o}$とロボット2からの垂直抗力$N_{r_2 o}$に着目する．\reffig{freebody}に示すようなそれぞれのロボットの前進力$F_{r_1}$，$F_{r_2}$，ロボットと台車の間の摩擦力$f_{tr_1}$，$f_{tr_2}$で表現すると，
+% また，\eqref{F-solve}式の1項目のロボット1からの垂直抗力$N_{r_1 o}$とロボット2からの垂直抗力$N_{r_2 o}$を\reffig{freebody}に示すようにロボット1の前進力$F_{r_1}$，ロボット2の前進力$F_{r_2}$，ロボット1と台車の間の摩擦力$f_{tr_1}$，ロボット2と台車の間の摩擦力$f_{tr_2}$で表現すると，
 \begin{equation}
     F_{\text { topple }}=\frac{h_{r}}{h_{o}}\left(F_{r_{1}}-F_{r_{2}}+f_{t{r_1}}+f_{t{r_2}}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
     \label{F-solve-again}
