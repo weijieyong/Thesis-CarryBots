@@ -95,20 +95,22 @@ F^{\prime} \frac{h_{o}}{2}+N_{r_{2} o} \frac{h_{r}}{2}=m_{o} g \frac{b_{o}}{2}+N
 \label{equilibrium}
 \end{equation}
 \eqref{equilibrium}式より，
-物体が傾き始めるときの台車にかかる力$F^{\prime}$を$F_{\text{topple}}$とし，$F_{\text{topple}}$について解いたものが\eqref{F-solve}である．
+物体が傾き始めるときの台車にかかる力$F^{\prime}$の限界値を$F_{\text{topple}}$とし，$F^{\prime}$について解き，物体が傾き始めるための力の条件が\eqref{F-solve}である．
 \begin{equation}
-    F_{\text { topple }}=\frac{h_{r}}{h_{o}}\left(N_{r_{1} o}-N_{r_{2} o}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
+    F_{\text{topple}}\geq\frac{h_{r}}{h_{o}}\left(N_{r_{1} o}-N_{r_{2} o}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
     \label{F-solve}
 \end{equation}
-ここで，\eqref{F-solve}式の1項目のロボット1からの垂直抗力$N_{r_1 o}$とロボット2からの垂直抗力$N_{r_2 o}$に着目する．\reffig{freebody}に示すようなそれぞれのロボットの前進力$F_{r_1}$，$F_{r_2}$，ロボットと台車の間の摩擦力$f_{tr_1}$，$f_{tr_2}$で表現すると，
+ここで，$F_{\text{topple}}$が大きいほど，台車に大きな力がかかっても物体は傾かないため，物体をより安定に運ぶことができると考えられる．
+よって，$F_{\text{topple}}$を大きくすることに着目する．
+さらに，わかりやすくするために，\eqref{F-solve}式の右辺の1項目のロボット1からの垂直抗力$N_{r_1 o}$とロボット2からの垂直抗力$N_{r_2 o}$に着目する．\reffig{freebody}に示すようなそれぞれのロボットの前進力$F_{r_1}$，$F_{r_2}$，ロボットと台車の間の摩擦力$f_{tr_1}$，$f_{tr_2}$で表現すると，
 % また，\eqref{F-solve}式の1項目のロボット1からの垂直抗力$N_{r_1 o}$とロボット2からの垂直抗力$N_{r_2 o}$を\reffig{freebody}に示すようにロボット1の前進力$F_{r_1}$，ロボット2の前進力$F_{r_2}$，ロボット1と台車の間の摩擦力$f_{tr_1}$，ロボット2と台車の間の摩擦力$f_{tr_2}$で表現すると，
 \begin{equation}
-    F_{\text { topple }}=\frac{h_{r}}{h_{o}}\left(F_{r_{1}}-F_{r_{2}}+f_{t{r_1}}+f_{t{r_2}}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
+    F_{\text{topple}}\geq\frac{h_{r}}{h_{o}}\left(F_{r_{1}}-F_{r_{2}}+f_{t{r_1}}+f_{t{r_2}}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
     \label{F-solve-again}
 \end{equation}
 になる．
-ただし，物体の左にあるロボット1の前進力$F_{r_{1}}$は右方向に働く．一方，物体の右にあるロボット2の前進力$F_{r_{2}}$は左方向に働く．
-ここで，\eqref{F-solve-again}式より，物体が傾き始めるの台車にかけるための力$F_{\text{topple}}$を大きくするためつまり，物体をより安定に支持するための条件を以下にまとめる．
+ただし，\reffig{freebody}に示すように物体の左にあるロボット1の前進力$F_{r_{1}}$は右方向に働く．一方，物体の右にあるロボット2の前進力$F_{r_{2}}$は左方向に働く．
+ここで，\eqref{F-solve-again}式より，物体が傾き始めるときの台車にかかる力$F_{\text{topple}}$を大きくするための条件を以下にまとめる．
 \begin{enumerate}
     \item 1項目のロボットと物体の高さの比$\frac{h_{r}}{h_{o}}$を大きくする．
     \item 1項目のロボット1とロボット2の前進力の差$F_{r_{1}}-F_{r_{2}}$を大きくする．
@@ -117,7 +119,7 @@ F^{\prime} \frac{h_{o}}{2}+N_{r_{2} o} \frac{h_{r}}{2}=m_{o} g \frac{b_{o}}{2}+N
     \item 2項目の物体の質量$m_{o}$を大きくする．
     \item 2項目のロボット2と物体との摩擦$f_{r_2 o}$を大きくする．  
 \end{enumerate}
-上に述べた条件の中で，1,4,5は既定で，2,3,6が可変なパラメータである．ここで筆者はロボットと台車の間の摩擦に注目した．すなわち，上下のロボット同士の間の摩擦をできるだけ大きくすることを目標に実機の開発を行う．
+上に述べた条件の中で，4，5は既定で，1，2，3，6が可変なパラメータである．ここで筆者はロボットと台車の間の摩擦に注目した．すなわち，上下のロボット同士の間の摩擦をできるだけ大きくすることを目標に実機の開発を行う．そして，1，2の設計に注目し，3章で作製した実機で4章で検証実験を行う．
 
 % \[
 % F_{\text { topple }(O_2)}=\frac{1}{h_{o}-2 h_{r}}\left[h_{r}\left(N_{r_{2} o}-N_{r_{1} o}+2 f_{t o}\right)+b_{o}\left(m_{o} g+2 f_{r_2 o}\right)\right]
