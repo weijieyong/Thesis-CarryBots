@@ -37,35 +37,16 @@
 本稿におけるモデリングに使用した変数を\reftab{model-parameter}に示す．
 \begin{figure}[tb]
   \centering
-    \includegraphics[width=0.7\columnwidth]{./figure/carrybot-model.pdf}
+    \includegraphics[width=0.65\columnwidth]{./figure/carrybot-model.pdf}
     \caption{Simplified model}
     \labfig{modeling}
 \end{figure}
 \begin{figure}[tb]
   \centering
-    \includegraphics[width=0.7\columnwidth]{./figure/freebody-v2.pdf}
+    \includegraphics[width=0.65\columnwidth]{./figure/freebody-v2.pdf}
      \caption{Free body diagram of object and robot}
      \labfig{freebody}
 \end{figure}
-% \begin{figure}[tb]
-%  \centering
-%   \begin{tabular}{c}
-   
-%   \begin{minipage}{0.5\hsize}
-%     \centering
-%      \includegraphics[trim=0 0 0 15, clip,width=\columnwidth]{./figure/model.pdf}
-%      \caption{Simplified model}
-%      \labfig{modeling}
-%   \end{minipage}
-   
-%   \begin{minipage}{0.5\hsize}
-%     \centering
-%      \includegraphics[width=0.7\columnwidth]{./figure/freebody.pdf}
-%      \caption{Free body diagram of object}
-%      \labfig{freebody}
-%   \end{minipage}
-%   \end{tabular}
-% \end{figure}
 
 \begin{table}[tb]
 \caption{Parameters of model}
@@ -89,35 +70,42 @@ $F_{r_2}$ & Force asserted by robot2                 \\ \hline
 \label{tab:model-parameter}
 \end{table}
 
-次に，物体が傾き始めるの台車にかけるための右向きの力を調べる．ここで，物体が傾き始める条件は台車からの垂直抗力の作用点と回転軸の一致である．この条件のもとに，\reffig{freebody}に示すような物体に働く全ての力についての点$O$まわりのモーメントの釣り合いの式を立てたものが\eqref{equilibrium}式である．
+次に，物体が傾き始めるの台車にかけるための右向きの力を調べる．ここで，物体が傾き始める条件は台車からの垂直抗力の作用点と回転軸の一致である．この条件のもとに，\reffig{freebody}に示すような物体に働く内力についての点$O$まわりのモーメントを考える．ここで，右まわりのモーメントが左まわりのモーメントより大きいとき，物体が倒れない．つまり，\eqref{equilibrium}式が成り立つとよい．
 \begin{equation}
-F^{\prime} \frac{h_{o}}{2}+N_{r_{2} o} \frac{h_{r}}{2}=m_{o} g \frac{b_{o}}{2}+N_{r_{1} o} \frac{h_{r}}{2}+f_{r_{2} o} b_{o}
+F^{\prime} \frac{h_{o}}{2}+N_{r_{2} o} \frac{h_{r}}{2}<m_{o} g \frac{b_{o}}{2}+N_{r_{1} o} \frac{h_{r}}{2}+f_{r_{2} o} b_{o}
 \label{equilibrium}
 \end{equation}
-\eqref{equilibrium}式より，
-物体が傾き始めるときの台車にかかる力$F^{\prime}$の限界値を$F_{\text{topple}}$とし，$F^{\prime}$について解き，物体が傾き始めるための力の条件が\eqref{F-solve}である．
+\eqref{equilibrium}式では，左辺に点$O$を中心として左まわりのモーメントを示し，その右辺に右まわりのモーメントを示す．
+また，$F^{\prime}$について解き，物体が傾かないための条件が\eqref{F-solve}式である．
 \begin{equation}
-    F_{\text{topple}}\geq\frac{h_{r}}{h_{o}}\left(N_{r_{1} o}-N_{r_{2} o}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
+    F^{\prime}<\frac{h_{r}}{h_{o}}\left(N_{r_{1} o}-N_{r_{2} o}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
     \label{F-solve}
 \end{equation}
-ここで，$F_{\text{topple}}$が大きいほど，台車に大きな力がかかっても物体は傾かないため，物体をより安定に運ぶことができると考えられる．
-よって，$F_{\text{topple}}$を大きくすることに着目する．
-さらに，わかりやすくするために，\eqref{F-solve}式の右辺の1項目のロボット1からの垂直抗力$N_{r_1 o}$とロボット2からの垂直抗力$N_{r_2 o}$に着目する．\reffig{freebody}に示すようなそれぞれのロボットの前進力$F_{r_1}$，$F_{r_2}$，ロボットと台車の間の摩擦力$f_{tr_1}$，$f_{tr_2}$で表現すると，
-% また，\eqref{F-solve}式の1項目のロボット1からの垂直抗力$N_{r_1 o}$とロボット2からの垂直抗力$N_{r_2 o}$を\reffig{freebody}に示すようにロボット1の前進力$F_{r_1}$，ロボット2の前進力$F_{r_2}$，ロボット1と台車の間の摩擦力$f_{tr_1}$，ロボット2と台車の間の摩擦力$f_{tr_2}$で表現すると，
+\eqref{F-solve}式より，右辺を大きくするほど，台車に大きな力がかかっても物体は傾かないため，物体をより安定に運ぶことができると考えられる．
+よって，\eqref{F-solve}式右辺を大きくすることに着目する．
+さらに，\eqref{F-solve}式の右辺の1項目のロボット1からの垂直抗力$N_{r_1 o}$とロボット2からの垂直抗力$N_{r_2 o}$を\reffig{freebody}に示すようなそれぞれのロボットの前進力$F_{r_1}$，$F_{r_2}$，ロボットと台車の間の摩擦力$f_{tr_1}$，$f_{tr_2}$で表現すると，
+$N_{r_{1} o}=F_{r_{1}}+f_{t{r_1}}$，
+$N_{r_{2} o}=F_{r_{2}}-f_{t{r_2}}$
+が得られる．これらを\eqref{F-solve}式に代入すると，
 \begin{equation}
-    F_{\text{topple}}\geq\frac{h_{r}}{h_{o}}\left(F_{r_{1}}-F_{r_{2}}+f_{t{r_1}}+f_{t{r_2}}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
+    F^{\prime}<\frac{h_{r}}{h_{o}}\left(F_{r_{1}}-F_{r_{2}}+f_{t{r_1}}+f_{t{r_2}}\right)+\frac{b_{o}}{h_{o}}\left(m_{o} g+2 f_{r_2 o}\right)
     \label{F-solve-again}
 \end{equation}
 になる．
 ただし，\reffig{freebody}に示すように物体の左にあるロボット1の前進力$F_{r_{1}}$は右方向に働く．一方，物体の右にあるロボット2の前進力$F_{r_{2}}$は左方向に働く．
-ここで，\eqref{F-solve-again}式より，物体が傾き始めるときの台車にかかる力$F_{\text{topple}}$を大きくするための条件を以下にまとめる．
+
+以上から，\eqref{F-solve-again}式より，右辺を大きくし，物体をより安定に運べるための条件を以下にまとめる．1項目に関しては，
 \begin{enumerate}
-    \item 1項目のロボットと物体の高さの比$\frac{h_{r}}{h_{o}}$を大きくする．
-    \item 1項目のロボット1とロボット2の前進力の差$F_{r_{1}}-F_{r_{2}}$を大きくする．
-    \item 1項目のロボットと台車の間の摩擦$f_{t{r_1}}+f_{t{r_2}}$を大きくする．
-    \item 2項目の物体の幅と高さの比$\frac{b_{o}}{h_{o}}$を大きくする．
-    \item 2項目の物体の質量$m_{o}$を大きくする．
-    \item 2項目のロボット2と物体との摩擦$f_{r_2 o}$を大きくする．  
+    \item ロボットと物体の高さの比$\frac{h_{r}}{h_{o}}$を大きくする．
+    \item ロボット1とロボット2の前進力の差$F_{r_{1}}-F_{r_{2}}$を大きくする．
+    \item ロボットと台車の間の摩擦$f_{t{r_1}}+f_{t{r_2}}$を大きくする． 
+\end{enumerate}
+2項目に関しては，
+\begin{enumerate}
+    \setcounter{enumi}{3}
+    \item 物体の幅と高さの比$\frac{b_{o}}{h_{o}}$を大きくする．
+    \item 物体の質量$m_{o}$を大きくする．
+    \item ロボット2と物体との摩擦$f_{r_2 o}$を大きくする．  
 \end{enumerate}
 上に述べた条件の中で，4，5は既定で，1，2，3，6が可変なパラメータである．ここで筆者はロボットと台車の間の摩擦に注目した．すなわち，上下のロボット同士の間の摩擦をできるだけ大きくすることを目標に実機の開発を行う．そして，1，2の設計に注目し，3章で作製した実機で4章で検証実験を行う．
 
